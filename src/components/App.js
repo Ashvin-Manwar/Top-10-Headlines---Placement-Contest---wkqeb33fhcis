@@ -5,7 +5,18 @@ const App = () => {
   const [category, setCategory] = useState("general");
   const [newsData, setNewsData] = useState([]);
   const [loading, setLoading] = useState(true);
-  const API_KEY=
+  const API_KEY="52c4159d8878c3962001fd9d5bf7ddd9"
+  const changeFunction=(e)=>{
+  setCategory(e.target.value)
+  }
+  useEffect(()=>{
+    setLoading(true);
+    fetch(`'https://gnews.io/api/v4/top-headlines?category=${category}&lang=en&country=us&max=10&apikey=${API_KEY}`).then(res=>res.json())
+    .then((res)=>{
+      setNewsData(res.articles)
+      console.log(res);
+    }).then(()=>setLoading(false));
+  },[category])
 
   return (
     <div id="main">
@@ -19,22 +30,23 @@ const App = () => {
         <option value="entertainment">Entertainment</option>
         <option value="science">Science</option>
       </select>
-      <p className='loader'>Loading...</p>
-      <ol>
-        <li key="">
-          <img className='news-img' src="" alt=""/>
+{loading && <p className='loader'>Loading...</p>}
+ {!loading && <ol> {newsData.map((e,i)=>{
+  return ( <li key={i}>
+          <img className='news-img' src={e.image} alt=""/>
           <section className='new-title-content-author'>
-            <h3 className='news-title'>news title</h3>
+            <h3 className='news-title'>{e,title}</h3>
             <section className='new-content-author'>
-              <p className='news-description'>news description</p>
-              <p className='news-source'><strong>Source:</strong> source name</p>
+              <p className='news-description'>{e.description}</p>
+              <p className='news-source'><strong>Source:</strong> {e.source.name}</p>
             </section>
           </section>
-        </li>
-      </ol>
+        </li>)
+ })
+}
+      </ol>}
     </div>
   )
 }
-
 
 export default App;
