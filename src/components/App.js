@@ -4,7 +4,8 @@ import '../styles/App.css';
 const App = () => {
   const [category, setCategory] = useState("general");
   const [newsData, setNewsData] = useState([]);
-  const [loading, setLoading] = useState();
+  const [loading, setLoading] = useState(true);
+  const API_KEY=
 
   return (
     <div id="main">
