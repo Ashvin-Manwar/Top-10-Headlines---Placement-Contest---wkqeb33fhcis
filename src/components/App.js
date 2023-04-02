@@ -8,11 +8,13 @@ const App = () => {
   
   const API_KEY="52c4159d8878c3962001fd9d5bf7ddd9";
   
-  const changeFunction=(e)=>{
+  const changeFunction=(e)=>
+  {
   setCategory(e.target.value);
   }
   
-  useEffect(()=>{
+  useEffect(()=>
+   {
     setLoading(true);
     
     fetch(`https://gnews.io/api/v4/top-headlines?category=${category}&lang=en&country=us&max=10&apikey=${API_KEY}`).then(res=>res.json())
